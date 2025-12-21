@@ -38,7 +38,8 @@ public class Vectorientation {
         velocity.y -= renderStateInfo.vectorientation$getGravity() * renderStateInfo.vectorientation$getGravity();
         velocity.y *= .98D;
 
-        float speed = (float) (Config.minWarp + Config.warpFactor * velocity.length());
+        float stretch = (float) (Config.minStretch + Config.stretchFactor * velocity.length());
+        float squish = 1 / (float) (Config.minSquish + Config.squishFactor * velocity.length());
         float angle = (float) Math.acos(velocity.normalize().y);
         Vector3f axis = new Vector3f((float) (-1 * velocity.z()), 0, (float) velocity.x());
         Quaternionf rot = new Quaternionf();
@@ -46,11 +47,9 @@ public class Vectorientation {
             axis.normalize();
             rot = new Quaternionf(new AxisAngle4f(-angle, axis));
         }
+        poseStack.scale(squish, stretch, squish);
         poseStack.translate(0.5D, 0.5D, 0.5D);
         poseStack.mulPose(rot);
-        if (Config.squetch) {
-            poseStack.scale(1 / speed, speed, 1 / speed);
-        }
         poseStack.translate(-0.5D, -0.5D, -0.5D);
     }
 }

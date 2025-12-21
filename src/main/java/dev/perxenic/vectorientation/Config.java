@@ -15,22 +15,20 @@ import java.util.stream.Collectors;
 public class Config {
     private static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
 
-    //TODO: Remove in favour of just setting warp factor to 0
-    private static final ModConfigSpec.BooleanValue SQUETCH = BUILDER.comment("Whether Squash & Stretch should be enabled").define("squetch", true);
+    private static final ModConfigSpec.DoubleValue MIN_STRETCH = BUILDER.comment("Defines the vertical stretch at 0 velocity").defineInRange("minStretch", 0.75, 0, Double.MAX_VALUE);
+    private static final ModConfigSpec.DoubleValue MIN_SQUISH = BUILDER.comment("Defines the horizontal squish at 0 velocity").defineInRange("minSquish", 0.75, 0, Double.MAX_VALUE);
 
-    //TODO: Add a MAX_WARP
-    private static final ModConfigSpec.DoubleValue MIN_WARP = BUILDER.comment("Defines the vertical squish at 0 velocity").defineInRange("minWarp", 0.75, 0, Double.MAX_VALUE);
-
-    //TODO: Separate into width and height
-    private static final ModConfigSpec.DoubleValue WARP_FACTOR = BUILDER.comment("Defines the amount squish increases with velocity").defineInRange("warpFactor", 1.0, 0, Double.MAX_VALUE);
+    private static final ModConfigSpec.DoubleValue STRETCH_FACTOR = BUILDER.comment("Defines the amount vertical stretch increases with velocity").defineInRange("stretchFactor", 1.0, 0, Double.MAX_VALUE);
+    private static final ModConfigSpec.DoubleValue SQUISH_FACTOR = BUILDER.comment("Defines the amount horizontal squish increases with velocity").defineInRange("squishFactor", 1.0, 0, Double.MAX_VALUE);
 
     private static final ModConfigSpec.ConfigValue<List<? extends String>> BLACKLIST = BUILDER.comment("A list of blocks that should not be squished.").defineListAllowEmpty("blacklist", List.of("minecraft:anvil", "minecraft:chipped_anvil", "minecraft:damaged_anvil", "minecraft:pointed_dripstone"), () -> "", Config::validateBlockName);
 
     static final ModConfigSpec SPEC = BUILDER.build();
 
-    public static boolean squetch;
-    public static double minWarp;
-    public static double warpFactor;
+    public static double minStretch;
+    public static double minSquish;
+    public static double stretchFactor;
+    public static double squishFactor;
     public static Set<Block> blacklist;
 
     private static boolean validateBlockName(final Object obj) {
@@ -44,9 +42,10 @@ public class Config {
 
     @SubscribeEvent
     static void onLoad(final ModConfigEvent event) {
-        squetch = SQUETCH.get();
-        minWarp = MIN_WARP.get();
-        warpFactor = WARP_FACTOR.get();
+        minStretch = MIN_STRETCH.get();
+        minSquish = MIN_SQUISH.get();
+        stretchFactor = STRETCH_FACTOR.get();
+        squishFactor = SQUISH_FACTOR.get();
 
         // convert the list of strings into a set of items
         blacklist = BLACKLIST.get().stream().map(blockName -> BuiltInRegistries.BLOCK.getValue(ResourceLocation.parse(blockName))).collect(Collectors.toSet());
