@@ -4,13 +4,15 @@
   "vectorientation.configuration.section.vectorientation.client.toml": "Vectorientation Configuration Client Section",
   "vectorientation.configuration.section.vectorientation.client.toml.title": "Vectorientation Configuration Client Section",
 
-  "vectorientation.configuration.warpFactor": "Warp Factor",
-  "vectorientation.configuration.warpFactor.tooltip": "Defines the amount squish increases with velocity",
-  "vectorientation.configuration.squetch": "Squetch",
-  "vectorientation.configuration.squetch.tooltip": "Whether Squash & Stretch should be enabled",
-  "vectorientation.configuration.minWarp": "Minimum Warp",
-  "vectorientation.configuration.minWarp.tooltip": "Defines the vertical squish at 0 velocity",
-  "vectorientation.configuration.blocks": "Blacklist",
-  "vectorientation.configuration.blocks.tooltip": "A list of blocks that should not be squished.",
-  "vectorientation.configuration.blocks.button": "Edit"
+  "vectorientation.configuration.minStretch": "Min Stretch",
+  "vectorientation.configuration.minStretch.tooltip": "Defines the vertical stretch at 0 velocity",
+  "vectorientation.configuration.minSquish": "Min Squish",
+  "vectorientation.configuration.minSquish.tooltip": "Defines the horizontal squish at 0 velocity",
+  "vectorientation.configuration.stretchFactor": "Stretch Factor",
+  "vectorientation.configuration.stretchFactor.tooltip": "Defines the amount vertical stretch increases with velocity",
+  "vectorientation.configuration.squishFactor": "Squish Factor",
+  "vectorientation.configuration.squishFactor.tooltip": "Defines the amount horizontal squish increases with velocity",
+  "vectorientation.configuration.blacklist": "Blacklist",
+  "vectorientation.configuration.blacklist.tooltip": "A list of blocks that should not be squished.",
+  "vectorientation.configuration.blacklist.button": "Edit"
 }
