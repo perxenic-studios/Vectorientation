@@ -2,7 +2,7 @@ package dev.perxenic.vectorientation;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.logging.LogUtils;
-import net.minecraft.world.entity.Entity;
+import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
@@ -30,11 +30,12 @@ public class Vectorientation {
         modContainer.registerConfig(ModConfig.Type.CLIENT, Config.SPEC);
     }
 
-    public static void addRotation(Entity entity, PoseStack poseStack) {
-        if (entity.onGround()) return;
-        Vec3 deltaMovement = entity.getDeltaMovement();
+    public static void addRotation(EntityRenderState renderState, PoseStack poseStack) {
+        var renderStateInfo = (EntityRenderStateInfo) renderState;
+        if (renderStateInfo.vectorientation$onGround()) return;
+        Vec3 deltaMovement = renderStateInfo.vectorientation$getDeltaMovement();
         Vector3d velocity = new Vector3d(deltaMovement.x, deltaMovement.y, deltaMovement.z);
-        velocity.y -= entity.getGravity() * entity.getGravity();
+        velocity.y -= renderStateInfo.vectorientation$getGravity() * renderStateInfo.vectorientation$getGravity();
         velocity.y *= .98D;
 
         float speed = (float) (Config.minWarp + Config.warpFactor * velocity.length());

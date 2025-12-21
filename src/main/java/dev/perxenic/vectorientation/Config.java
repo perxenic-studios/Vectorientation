@@ -24,8 +24,7 @@ public class Config {
     //TODO: Separate into width and height
     private static final ModConfigSpec.DoubleValue WARP_FACTOR = BUILDER.comment("Defines the amount squish increases with velocity").defineInRange("warpFactor", 1.0, 0, Double.MAX_VALUE);
 
-    //TODO: Rename config entry to blacklist on major version update
-    private static final ModConfigSpec.ConfigValue<List<? extends String>> BLACKLIST = BUILDER.comment("A list of blocks that should not be squished.").defineListAllowEmpty("blocks", List.of("minecraft:anvil", "minecraft:chipped_anvil", "minecraft:damaged_anvil", "minecraft:pointed_dripstone"), () -> "", Config::validateBlockName);
+    private static final ModConfigSpec.ConfigValue<List<? extends String>> BLACKLIST = BUILDER.comment("A list of blocks that should not be squished.").defineListAllowEmpty("blacklist", List.of("minecraft:anvil", "minecraft:chipped_anvil", "minecraft:damaged_anvil", "minecraft:pointed_dripstone"), () -> "", Config::validateBlockName);
 
     static final ModConfigSpec SPEC = BUILDER.build();
 
@@ -50,6 +49,6 @@ public class Config {
         warpFactor = WARP_FACTOR.get();
 
         // convert the list of strings into a set of items
-        blacklist = BLACKLIST.get().stream().map(blockName -> BuiltInRegistries.BLOCK.get(ResourceLocation.parse(blockName))).collect(Collectors.toSet());
+        blacklist = BLACKLIST.get().stream().map(blockName -> BuiltInRegistries.BLOCK.getValue(ResourceLocation.parse(blockName))).collect(Collectors.toSet());
     }
 }
