@@ -40,13 +40,13 @@ public class Vectorientation {
         poseStack.scale(squish, stretch, squish);
 
         // Only rotate if axis isn't approximately zero
-        if (deltaMovement.length() > .001f) {
+        if (deltaMovement.x > .001f || deltaMovement.z > .001f) {
             poseStack.translate(0.5D, 0.5D, 0.5D);
 
             // Calculate angle using inverse cos and rotate around axis based on ratio of z to x
             poseStack.mulPose(new Quaternionf(new AxisAngle4f(
                     (float) -Math.acos(deltaMovement.normalize().y),
-                    new Vector3f(-1 * (float) deltaMovement.z(), 0, (float) deltaMovement.x())
+                    new Vector3f((float) (-1 * deltaMovement.z()), 0, (float) deltaMovement.x()).normalize()
             )));
 
             poseStack.translate(-0.5D, -0.5D, -0.5D);
