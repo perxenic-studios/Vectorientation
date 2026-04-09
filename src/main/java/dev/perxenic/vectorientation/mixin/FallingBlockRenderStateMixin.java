@@ -1,14 +1,14 @@
 package dev.perxenic.vectorientation.mixin;
 
 import dev.perxenic.vectorientation.EntityRenderStateInfo;
-import net.minecraft.client.renderer.entity.state.EntityRenderState;
+import net.minecraft.client.renderer.entity.state.FallingBlockRenderState;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 
-@Mixin(EntityRenderState.class)
-public class EntityRenderStateMixin implements EntityRenderStateInfo {
+@Mixin(FallingBlockRenderState.class)
+public class FallingBlockRenderStateMixin implements EntityRenderStateInfo {
     @Unique
     boolean vectorientation$onGround = false;
 
