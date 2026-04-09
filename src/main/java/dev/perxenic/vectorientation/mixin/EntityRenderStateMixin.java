@@ -2,6 +2,7 @@ package dev.perxenic.vectorientation.mixin;
 
 import dev.perxenic.vectorientation.EntityRenderStateInfo;
 import net.minecraft.client.renderer.entity.state.EntityRenderState;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -16,6 +17,9 @@ public class EntityRenderStateMixin implements EntityRenderStateInfo {
 
     @Unique
     Vec3 vectorientation$deltaMovement = Vec3.ZERO;
+
+    @Unique
+    Block vectorientation$block;
 
     @Override
     public void vectorientation$setOnGround(boolean value) {
@@ -33,6 +37,11 @@ public class EntityRenderStateMixin implements EntityRenderStateInfo {
     }
 
     @Override
+    public void vectorientation$setBlock(Block block) {
+        this.vectorientation$block = block;
+    }
+
+    @Override
     public double vectorientation$getGravity() {
         return vectorientation$gravity;
     }
@@ -45,5 +54,10 @@ public class EntityRenderStateMixin implements EntityRenderStateInfo {
     @Override
     public Vec3 vectorientation$getDeltaMovement() {
         return vectorientation$deltaMovement;
+    }
+
+    @Override
+    public Block vectorientation$getBlock() {
+        return vectorientation$block;
     }
 }

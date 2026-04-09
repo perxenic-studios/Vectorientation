@@ -1,8 +1,8 @@
 package dev.perxenic.vectorientation;
 
-import net.minecraft.ResourceLocationException;
+import net.minecraft.IdentifierException;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.event.config.ModConfigEvent;
@@ -33,9 +33,9 @@ public class Config {
 
     private static boolean validateBlockName(final Object obj) {
         try {
-            return obj instanceof String blockName && BuiltInRegistries.BLOCK.containsKey(ResourceLocation.parse(blockName));
+            return obj instanceof String blockName && BuiltInRegistries.BLOCK.containsKey(Identifier.parse(blockName));
         }
-        catch(ResourceLocationException exception) {
+        catch(IdentifierException exception) {
             return false;
         }
     }
@@ -48,6 +48,6 @@ public class Config {
         squishFactor = SQUISH_FACTOR.get();
 
         // convert the list of strings into a set of items
-        blacklist = BLACKLIST.get().stream().map(blockName -> BuiltInRegistries.BLOCK.getValue(ResourceLocation.parse(blockName))).collect(Collectors.toSet());
+        blacklist = BLACKLIST.get().stream().map(blockName -> BuiltInRegistries.BLOCK.getValue(Identifier.parse(blockName))).collect(Collectors.toSet());
     }
 }
