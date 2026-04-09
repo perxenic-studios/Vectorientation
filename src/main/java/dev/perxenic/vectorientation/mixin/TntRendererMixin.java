@@ -37,7 +37,6 @@ public class TntRendererMixin {
     public void addRenderStateInfo(PrimedTnt tntEntity, TntRenderState renderState, float partialTick, CallbackInfo ci)
     {
         ((EntityRenderStateInfo)renderState).vectorientation$setOnGround(tntEntity.onGround());
-        ((EntityRenderStateInfo)renderState).vectorientation$setGravity(tntEntity.getGravity());
         ((EntityRenderStateInfo)renderState).vectorientation$setBlock(tntEntity.getBlockState().getBlock());
 
         ((EntityRenderStateInfo)renderState).vectorientation$setDeltaMovementInterpolated(tntEntity, partialTick);

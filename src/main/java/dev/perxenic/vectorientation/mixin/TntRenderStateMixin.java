@@ -32,18 +32,8 @@ public class TntRenderStateMixin implements EntityRenderStateInfo {
     }
 
     @Override
-    public void vectorientation$setGravity(double value) {
-        this.vectorientation$gravity = value;
-    }
-
-    @Override
     public void vectorientation$setBlock(Block block) {
         this.vectorientation$block = block;
-    }
-
-    @Override
-    public double vectorientation$getGravity() {
-        return vectorientation$gravity;
     }
 
     @Override

@@ -8,9 +8,6 @@ public interface EntityRenderStateInfo {
     void vectorientation$setOnGround(boolean value);
     boolean vectorientation$onGround();
 
-    void vectorientation$setGravity(double value);
-    double vectorientation$getGravity();
-
     void vectorientation$setDeltaMovement(Vec3 deltaMovement);
     Vec3 vectorientation$getDeltaMovement();
 
@@ -21,7 +18,7 @@ public interface EntityRenderStateInfo {
         var originalDelta = entity.getDeltaMovement();
         vectorientation$setDeltaMovement(new Vec3(
                 originalDelta.x,
-                originalDelta.y - vectorientation$getGravity() * partialTick,
+                originalDelta.y - entity.getGravity() * partialTick,
                 originalDelta.z
         ));
     }

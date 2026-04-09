@@ -35,7 +35,6 @@ public class FallingBlockRendererMixin {
     public void addRenderStateInfo(FallingBlockEntity fallingBlockEntity, FallingBlockRenderState renderState, float partialTick, CallbackInfo ci)
     {
         ((EntityRenderStateInfo)renderState).vectorientation$setOnGround(fallingBlockEntity.onGround());
-        ((EntityRenderStateInfo)renderState).vectorientation$setGravity(fallingBlockEntity.getGravity());
         ((EntityRenderStateInfo)renderState).vectorientation$setBlock(fallingBlockEntity.getBlockState().getBlock());
 
         ((EntityRenderStateInfo)renderState).vectorientation$setDeltaMovementInterpolated(fallingBlockEntity, partialTick);
