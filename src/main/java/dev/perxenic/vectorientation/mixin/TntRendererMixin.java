@@ -34,11 +34,12 @@ public class TntRendererMixin {
             at = @At("HEAD"),
             method = "Lnet/minecraft/client/renderer/entity/TntRenderer;extractRenderState(Lnet/minecraft/world/entity/item/PrimedTnt;Lnet/minecraft/client/renderer/entity/state/TntRenderState;F)V"
     )
-    public void addRenderStateInfo(PrimedTnt tntEntity, TntRenderState renderState, float f, CallbackInfo ci)
+    public void addRenderStateInfo(PrimedTnt tntEntity, TntRenderState renderState, float partialTick, CallbackInfo ci)
     {
         ((EntityRenderStateInfo)renderState).vectorientation$setOnGround(tntEntity.onGround());
-        ((EntityRenderStateInfo)renderState).vectorientation$setDeltaMovement(tntEntity.getDeltaMovement());
         ((EntityRenderStateInfo)renderState).vectorientation$setGravity(tntEntity.getGravity());
         ((EntityRenderStateInfo)renderState).vectorientation$setBlock(tntEntity.getBlockState().getBlock());
+
+        ((EntityRenderStateInfo)renderState).vectorientation$setDeltaMovementInterpolated(tntEntity, partialTick);
     }
 }

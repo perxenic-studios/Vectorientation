@@ -32,11 +32,12 @@ public class FallingBlockRendererMixin {
             at = @At("HEAD"),
             method = "Lnet/minecraft/client/renderer/entity/FallingBlockRenderer;extractRenderState(Lnet/minecraft/world/entity/item/FallingBlockEntity;Lnet/minecraft/client/renderer/entity/state/FallingBlockRenderState;F)V"
     )
-    public void addRenderStateInfo(FallingBlockEntity fallingBlockEntity, FallingBlockRenderState renderState, float f, CallbackInfo ci)
+    public void addRenderStateInfo(FallingBlockEntity fallingBlockEntity, FallingBlockRenderState renderState, float partialTick, CallbackInfo ci)
     {
         ((EntityRenderStateInfo)renderState).vectorientation$setOnGround(fallingBlockEntity.onGround());
-        ((EntityRenderStateInfo)renderState).vectorientation$setDeltaMovement(fallingBlockEntity.getDeltaMovement());
         ((EntityRenderStateInfo)renderState).vectorientation$setGravity(fallingBlockEntity.getGravity());
         ((EntityRenderStateInfo)renderState).vectorientation$setBlock(fallingBlockEntity.getBlockState().getBlock());
+
+        ((EntityRenderStateInfo)renderState).vectorientation$setDeltaMovementInterpolated(fallingBlockEntity, partialTick);
     }
 }

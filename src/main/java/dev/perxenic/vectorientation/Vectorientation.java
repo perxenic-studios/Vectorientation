@@ -35,8 +35,6 @@ public class Vectorientation {
         if (renderStateInfo.vectorientation$onGround()) return;
         Vec3 deltaMovement = renderStateInfo.vectorientation$getDeltaMovement();
         Vector3d velocity = new Vector3d(deltaMovement.x, deltaMovement.y, deltaMovement.z);
-        velocity.y -= renderStateInfo.vectorientation$getGravity() * renderStateInfo.vectorientation$getGravity();
-        velocity.y *= .98D;
 
         float stretch = (float) (Config.minStretch + Config.stretchFactor * velocity.length());
         float squish = 1 / (float) (Config.minSquish + Config.squishFactor * velocity.length());
