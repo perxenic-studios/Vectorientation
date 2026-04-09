@@ -4,7 +4,6 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import dev.perxenic.vectorientation.Config;
 import dev.perxenic.vectorientation.EntityRenderStateInfo;
 import dev.perxenic.vectorientation.Vectorientation;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.TntRenderer;
 import net.minecraft.client.renderer.entity.state.TntRenderState;
@@ -27,7 +26,7 @@ public class TntRendererMixin {
     )
     public void addRotation(TntRenderState state, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState camera, CallbackInfo ci) {
         if (Config.blacklist.contains(Blocks.TNT)) return;
-        Vectorientation.addRotation(state, poseStack);
+        Vectorientation.addMovementTransform(state, poseStack);
     }
 
     @Inject(

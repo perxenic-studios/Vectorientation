@@ -30,25 +30,27 @@ public class Vectorientation {
         modContainer.registerConfig(ModConfig.Type.CLIENT, Config.SPEC);
     }
 
-    public static void addRotation(EntityRenderState renderState, PoseStack poseStack) {
+    public static void addMovementTransform(EntityRenderState renderState, PoseStack poseStack) {
         var renderStateInfo = (EntityRenderStateInfo) renderState;
         if (renderStateInfo.vectorientation$onGround()) return;
         Vec3 deltaMovement = renderStateInfo.vectorientation$getDeltaMovement();
-        Vector3d velocity = new Vector3d(deltaMovement.x, deltaMovement.y, deltaMovement.z);
 
-        float stretch = (float) (Config.minStretch + Config.stretchFactor * velocity.length());
-        float squish = 1 / (float) (Config.minSquish + Config.squishFactor * velocity.length());
-        float angle = (float) Math.acos(velocity.normalize().y);
-        Vector3f axis = new Vector3f((float) (-1 * velocity.z()), 0, (float) velocity.x());
-        Quaternionf rot = new Quaternionf();
-        if (axis.length() > .01f) {
-            axis.normalize();
-            rot = new Quaternionf(new AxisAngle4f(-angle, axis));
-        }
+        float stretch = (float) (Config.minStretch + Config.stretchFactor * deltaMovement.length());
+        float squish = 1 / (float) (Config.minSquish + Config.squishFactor * deltaMovement.length());
         poseStack.scale(squish, stretch, squish);
-        poseStack.translate(0.5D, 0.5D, 0.5D);
-        poseStack.mulPose(rot);
-        poseStack.translate(-0.5D, -0.5D, -0.5D);
+
+        // Only rotate if axis isn't approximately zero
+        if (deltaMovement.length() > .001f) {
+            poseStack.translate(0.5D, 0.5D, 0.5D);
+
+            // Calculate angle using inverse cos and rotate around axis based on ratio of z to x
+            poseStack.mulPose(new Quaternionf(new AxisAngle4f(
+                    (float) -Math.acos(deltaMovement.normalize().y),
+                    new Vector3f(-1 * (float) deltaMovement.z(), 0, (float) deltaMovement.x())
+            )));
+
+            poseStack.translate(-0.5D, -0.5D, -0.5D);
+        }
     }
 }
 

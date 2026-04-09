@@ -25,7 +25,7 @@ public class FallingBlockRendererMixin {
     )
     public void addRotation(FallingBlockRenderState state, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState camera, CallbackInfo ci) {
         if (Config.blacklist.contains(((EntityRenderStateInfo)state).vectorientation$getBlock())) return;
-        Vectorientation.addRotation(state, poseStack);
+        Vectorientation.addMovementTransform(state, poseStack);
     }
 
     @Inject(
