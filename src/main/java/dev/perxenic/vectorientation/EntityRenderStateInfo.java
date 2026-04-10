@@ -3,6 +3,7 @@ package dev.perxenic.vectorientation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.phys.Vec3;
+import org.joml.Math;
 
 public interface EntityRenderStateInfo {
     void vectorientation$setOnGround(boolean value);
@@ -18,7 +19,7 @@ public interface EntityRenderStateInfo {
         var originalDelta = entity.getDeltaMovement();
         vectorientation$setDeltaMovement(new Vec3(
                 originalDelta.x,
-                originalDelta.y - entity.getGravity() * partialTick,
+                originalDelta.y * (1 - partialTick) + (originalDelta.y - entity.getGravity())  * 0.98 * partialTick,
                 originalDelta.z
         ));
     }
