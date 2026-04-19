@@ -12,5 +12,9 @@
   "vectorientation.configuration.minWarp.tooltip": "Defines the vertical squish at 0 velocity",
   "vectorientation.configuration.blocks": "Blacklist",
   "vectorientation.configuration.blocks.tooltip": "A list of blocks that should not be squished.",
-  "vectorientation.configuration.blocks.button": "Edit"
+  "vectorientation.configuration.blocks.button": "Edit",
+  "vectorientation.configuration.fallingSpin": "Falling Spin",
+  "vectorientation.configuration.fallingSpin.tooltip": "Whether block should spin around axis of movement",
+  "vectorientation.configuration.spinSpeed": "Spin Speed",
+  "vectorientation.configuration.spinSpeed.tooltip": "How many ticks block should take to spin around axis of movement"
 }
