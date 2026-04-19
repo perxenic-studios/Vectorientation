@@ -8,11 +8,10 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
-import org.joml.AxisAngle4f;
-import org.joml.Quaternionf;
-import org.joml.Vector3d;
-import org.joml.Vector3f;
+import org.joml.*;
 import org.slf4j.Logger;
+
+import java.lang.Math;
 
 // The value here should match an entry in the META-INF/neoforge.mods.toml file
 @Mod(value = Vectorientation.MOD_ID)
@@ -38,10 +37,10 @@ public class Vectorientation {
                 ? deltaMovement.y * (1 - partialTicks) + (deltaMovement.y - entity.getGravity())  * 0.98 * partialTicks
                 : deltaMovement.y;
 
-        Vector3d velocity = new Vector3d(
-                deltaMovement.x,
-                newY,
-                deltaMovement.z
+        Vector3f velocity = new Vector3f(
+                (float) deltaMovement.x,
+                (float) newY,
+                (float) deltaMovement.z
         );
 
         if (Config.squetch) {
@@ -54,8 +53,13 @@ public class Vectorientation {
         Quaternionf rot = new Quaternionf();
         if (axis.length() > .01f) {
             axis.normalize();
-            rot = new Quaternionf(new AxisAngle4f(-angle, axis));
+            rot.rotateAxis(-angle, axis);
         }
+
+        float spinAngle =  (entity.tickCount % 40 + partialTicks) / 40 * (float) Math.TAU;
+        Vector3f spinAxis = velocity.normalize();
+        poseStack.mulPose(new Quaternionf().rotateAxis(spinAngle, spinAxis));
+
         poseStack.translate(0.5D, 0.5D, 0.5D);
         poseStack.mulPose(rot);
         poseStack.translate(-0.5D, -0.5D, -0.5D);
