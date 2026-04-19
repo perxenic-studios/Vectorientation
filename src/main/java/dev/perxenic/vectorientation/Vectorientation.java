@@ -44,7 +44,11 @@ public class Vectorientation {
                 deltaMovement.z
         );
 
-        float speed = (float) (Config.minWarp + Config.warpFactor * velocity.length());
+        if (Config.squetch) {
+            float speed = (float) (Config.minWarp + Config.warpFactor * velocity.length());
+            poseStack.scale(1 / speed, speed, 1 / speed);
+        }
+
         float angle = (float) Math.acos(velocity.normalize().y);
         Vector3f axis = new Vector3f((float) (-1 * velocity.z()), 0, (float) velocity.x());
         Quaternionf rot = new Quaternionf();
@@ -54,9 +58,6 @@ public class Vectorientation {
         }
         poseStack.translate(0.5D, 0.5D, 0.5D);
         poseStack.mulPose(rot);
-        if (Config.squetch) {
-            poseStack.scale(1 / speed, speed, 1 / speed);
-        }
         poseStack.translate(-0.5D, -0.5D, -0.5D);
     }
 }
