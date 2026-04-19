@@ -28,6 +28,8 @@ public class Config {
     private static final ModConfigSpec.ConfigValue<List<? extends String>> BLACKLIST = BUILDER.comment("A list of blocks that should not be squished.").defineListAllowEmpty("blocks", List.of("minecraft:anvil", "minecraft:chipped_anvil", "minecraft:damaged_anvil", "minecraft:pointed_dripstone"), () -> "", Config::validateBlockName);
 
     private static final ModConfigSpec.BooleanValue ENABLE_INTERPOLATION = BUILDER.comment("Allow interpolating velocity for smoother movement in most cases").define("enableInterpolation", true);
+    private static final ModConfigSpec.BooleanValue FALLING_SPIN = BUILDER.comment("Whether block should spin around axis of movement").define("fallingSpin", false);
+    private static final ModConfigSpec.IntValue SPIN_SPEED = BUILDER.comment("How many ticks block should take to spin around axis of movement").defineInRange("spinSpeed", 40, 0, 1000);
 
     static final ModConfigSpec SPEC = BUILDER.build();
 
@@ -36,6 +38,8 @@ public class Config {
     public static double warpFactor;
     public static Set<Block> blacklist;
     public static boolean enableInterpolation;
+    public static boolean fallingSpin;
+    public static int spinSpeed;
 
     private static boolean validateBlockName(final Object obj) {
         try {
@@ -59,5 +63,7 @@ public class Config {
         blacklist = BLACKLIST.get().stream().map(blockName -> BuiltInRegistries.BLOCK.get(ResourceLocation.parse(blockName))).collect(Collectors.toSet());
 
         enableInterpolation = ENABLE_INTERPOLATION.get();
+        fallingSpin = FALLING_SPIN.get();
+        spinSpeed = SPIN_SPEED.get();
     }
 }

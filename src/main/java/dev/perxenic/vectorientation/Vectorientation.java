@@ -56,9 +56,11 @@ public class Vectorientation {
             rot.rotateAxis(-angle, axis);
         }
 
-        float spinAngle =  (entity.tickCount % 40 + partialTicks) / 40 * (float) Math.TAU;
-        Vector3f spinAxis = velocity.normalize();
-        poseStack.mulPose(new Quaternionf().rotateAxis(spinAngle, spinAxis));
+        if (Config.fallingSpin) {
+            float spinAngle = (entity.tickCount % Config.spinSpeed + partialTicks) / Config.spinSpeed * (float) Math.TAU;
+            Vector3f spinAxis = velocity.normalize();
+            poseStack.mulPose(new Quaternionf().rotateAxis(spinAngle, spinAxis));
+        }
 
         poseStack.translate(0.5D, 0.5D, 0.5D);
         poseStack.mulPose(rot);
