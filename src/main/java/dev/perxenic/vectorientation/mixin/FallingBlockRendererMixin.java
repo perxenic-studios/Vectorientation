@@ -22,6 +22,6 @@ public class FallingBlockRendererMixin {
     )
     public void addRotation(FallingBlockEntity entity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource buffer, int packedLight, CallbackInfo ci) {
         if (Config.blacklist.contains(entity.getBlockState().getBlock())) return;
-        Vectorientation.addRotation(entity, poseStack);
+        Vectorientation.addRotation(entity, poseStack, partialTicks);
     }
 }

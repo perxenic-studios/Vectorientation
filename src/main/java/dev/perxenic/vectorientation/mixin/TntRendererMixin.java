@@ -23,6 +23,6 @@ public class TntRendererMixin {
     )
     public void addRotation(PrimedTnt entity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource buffer, int packedLight, CallbackInfo ci) {
         if (Config.blacklist.contains(Blocks.TNT)) return;
-        Vectorientation.addRotation(entity, poseStack);
+        Vectorientation.addRotation(entity, poseStack, partialTicks);
     }
 }

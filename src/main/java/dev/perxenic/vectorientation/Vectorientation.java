@@ -30,12 +30,14 @@ public class Vectorientation {
         modContainer.registerConfig(ModConfig.Type.CLIENT, Config.SPEC);
     }
 
-    public static void addRotation(Entity entity, PoseStack poseStack) {
+    public static void addRotation(Entity entity, PoseStack poseStack, float partialTicks) {
         if (entity.onGround()) return;
         Vec3 deltaMovement = entity.getDeltaMovement();
-        Vector3d velocity = new Vector3d(deltaMovement.x, deltaMovement.y, deltaMovement.z);
-        velocity.y -= entity.getGravity() * entity.getGravity();
-        velocity.y *= .98D;
+        Vector3d velocity = new Vector3d(
+                deltaMovement.x,
+                deltaMovement.y * (1 - partialTicks) + (deltaMovement.y - entity.getGravity())  * 0.98 * partialTicks,
+                deltaMovement.z
+        );
 
         float speed = (float) (Config.minWarp + Config.warpFactor * velocity.length());
         float angle = (float) Math.acos(velocity.normalize().y);
