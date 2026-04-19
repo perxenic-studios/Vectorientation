@@ -33,9 +33,14 @@ public class Vectorientation {
     public static void addRotation(Entity entity, PoseStack poseStack, float partialTicks) {
         if (entity.onGround()) return;
         Vec3 deltaMovement = entity.getDeltaMovement();
+
+        var newY = Config.enableInterpolation
+                ? deltaMovement.y * (1 - partialTicks) + (deltaMovement.y - entity.getGravity())  * 0.98 * partialTicks
+                : deltaMovement.y;
+
         Vector3d velocity = new Vector3d(
                 deltaMovement.x,
-                deltaMovement.y * (1 - partialTicks) + (deltaMovement.y - entity.getGravity())  * 0.98 * partialTicks,
+                newY,
                 deltaMovement.z
         );
 

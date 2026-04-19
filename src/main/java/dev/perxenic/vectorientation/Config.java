@@ -27,12 +27,15 @@ public class Config {
     //TODO: Rename config entry to blacklist on major version update
     private static final ModConfigSpec.ConfigValue<List<? extends String>> BLACKLIST = BUILDER.comment("A list of blocks that should not be squished.").defineListAllowEmpty("blocks", List.of("minecraft:anvil", "minecraft:chipped_anvil", "minecraft:damaged_anvil", "minecraft:pointed_dripstone"), () -> "", Config::validateBlockName);
 
+    private static final ModConfigSpec.BooleanValue ENABLE_INTERPOLATION = BUILDER.comment("Allow interpolating velocity for smoother movement in most cases").define("enableInterpolation", true);
+
     static final ModConfigSpec SPEC = BUILDER.build();
 
     public static boolean squetch;
     public static double minWarp;
     public static double warpFactor;
     public static Set<Block> blacklist;
+    public static boolean enableInterpolation;
 
     private static boolean validateBlockName(final Object obj) {
         try {
@@ -51,5 +54,7 @@ public class Config {
 
         // convert the list of strings into a set of items
         blacklist = BLACKLIST.get().stream().map(blockName -> BuiltInRegistries.BLOCK.get(ResourceLocation.parse(blockName))).collect(Collectors.toSet());
+
+        enableInterpolation = ENABLE_INTERPOLATION.get();
     }
 }
