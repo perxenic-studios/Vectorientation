@@ -48,6 +48,9 @@ public class Config {
 
     @SubscribeEvent
     static void onLoad(final ModConfigEvent event) {
+        // Don't attempt to reload config on unload
+        if (event instanceof ModConfigEvent.Unloading) return;
+
         squetch = SQUETCH.get();
         minWarp = MIN_WARP.get();
         warpFactor = WARP_FACTOR.get();
