@@ -16,20 +16,45 @@ public class Config {
     private static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
 
     //TODO: Remove in favour of just setting warp factor to 0
-    private static final ModConfigSpec.BooleanValue SQUETCH = BUILDER.comment("Whether Squash & Stretch should be enabled").define("squetch", true);
+    private static final ModConfigSpec.BooleanValue SQUETCH = BUILDER
+            .comment("Whether Squash & Stretch should be enabled")
+            .define("squetch", true);
 
     //TODO: Add a MAX_WARP
-    private static final ModConfigSpec.DoubleValue MIN_WARP = BUILDER.comment("Defines the vertical squish at 0 velocity").defineInRange("minWarp", 0.75, 0, Double.MAX_VALUE);
+    private static final ModConfigSpec.DoubleValue MIN_WARP = BUILDER
+            .comment("Defines the vertical squish at 0 velocity")
+            .defineInRange("minWarp", 0.75, 0, Double.MAX_VALUE);
 
     //TODO: Separate into width and height
-    private static final ModConfigSpec.DoubleValue WARP_FACTOR = BUILDER.comment("Defines the amount squish increases with velocity").defineInRange("warpFactor", 1.0, 0, Double.MAX_VALUE);
+    private static final ModConfigSpec.DoubleValue WARP_FACTOR = BUILDER
+            .comment("Defines the amount squish increases with velocity")
+            .defineInRange("warpFactor", 1.0, 0, Double.MAX_VALUE);
 
     //TODO: Rename config entry to blacklist on major version update
-    private static final ModConfigSpec.ConfigValue<List<? extends String>> BLACKLIST = BUILDER.comment("A list of blocks that should not be squished.").defineListAllowEmpty("blocks", List.of("minecraft:anvil", "minecraft:chipped_anvil", "minecraft:damaged_anvil", "minecraft:pointed_dripstone"), () -> "", Config::validateBlockName);
+    private static final ModConfigSpec.ConfigValue<List<? extends String>> BLACKLIST = BUILDER
+            .comment("A list of blocks that should not be squished.")
+            .defineListAllowEmpty(
+                    "blocks",
+                    List.of(
+                            "minecraft:anvil",
+                            "minecraft:chipped_anvil",
+                            "minecraft:damaged_anvil",
+                            "minecraft:pointed_dripstone"
+                    ),
+                    () -> "", Config::validateBlockName
+            );
 
-    private static final ModConfigSpec.BooleanValue ENABLE_INTERPOLATION = BUILDER.comment("Allow interpolating velocity for smoother movement in most cases").define("enableInterpolation", true);
-    private static final ModConfigSpec.BooleanValue FALLING_SPIN = BUILDER.comment("Whether block should spin around axis of movement").define("fallingSpin", false);
-    private static final ModConfigSpec.IntValue SPIN_SPEED = BUILDER.comment("How many ticks block should take to spin around axis of movement").defineInRange("spinSpeed", 40, 0, 1000);
+    private static final ModConfigSpec.BooleanValue ENABLE_INTERPOLATION = BUILDER
+            .comment("Allow interpolating velocity for smoother movement in most cases")
+            .define("enableInterpolation", true);
+
+    private static final ModConfigSpec.BooleanValue FALLING_SPIN = BUILDER
+            .comment("Whether block should spin around axis of movement")
+            .define("fallingSpin", false);
+
+    private static final ModConfigSpec.IntValue SPIN_SPEED = BUILDER
+            .comment("How many ticks block should take to spin around axis of movement")
+            .defineInRange("spinSpeed", 40, 0, 1000);
 
     static final ModConfigSpec SPEC = BUILDER.build();
 
